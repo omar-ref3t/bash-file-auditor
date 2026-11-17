@@ -1,0 +1,1 @@
+Test scan, permissions, extensions, search, backup, and restore.
