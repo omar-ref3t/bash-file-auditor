@@ -172,11 +172,11 @@ backup_all() {
 
         name="${item##*/}"
         stamp="$(date '+%Y%m%d_%H%M%S')"
-        destination="$backup_dir/${name}_${stamp}.bak"
+        destination="$backup_dir/${stamp}-${name}.bak"
         suffix=1
 
         while [[ -e "$destination" ]]; do
-            destination="$backup_dir/${name}_${stamp}_${suffix}.bak"
+            destination="$backup_dir/${stamp}_${suffix}-${name}.bak"
             ((suffix += 1))
         done
 
@@ -221,6 +221,7 @@ restore_backup() {
     local backup_dir="$directory/backups"
     local chosen=${2:-}
     local source_file
+    local original_name
     local destination
 
     require_dir "$directory" || return 1
@@ -242,7 +243,9 @@ restore_backup() {
         return 1
     fi
 
-    destination="$directory/restored_${chosen%.bak}"
+    original_name="${chosen#*-}"
+    original_name="${original_name%.bak}"
+    destination="$directory/restored_$original_name"
     if [[ -e "$destination" ]]; then
         log_error "Restore would overwrite an existing file: $destination"
         log_action "Restore attempted in $directory for $chosen"
