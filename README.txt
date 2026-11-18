@@ -1,6 +1,6 @@
 Bash File Auditor & Backup Tool
 
-Requires Bash 4 or newer (for associative arrays in the extension report).
+Requires Bash (available by default on Linux).
 
 Project work: Bash menu, audit and backup functions, command-line actions, and sample data.
 
